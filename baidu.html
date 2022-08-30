@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="http://api.map.baidu.com/api?v=3.0&ak=KeOptwOMxiYisWdWV7DAxCk78c4AMTHt&services=false"></script>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		html, body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script>
+		const map = new BMap.Map("map"); // 创建地图实例 
+		const point = new BMap.Point(116.404, 39.915); // 创建点坐标 
+		map.centerAndZoom(point, 15); // 初始化地图，设置中心点坐标和地图级别 
+		map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+		map.enableKeyboard(true); // 启用键盘操作
+		
+		// 控件
+		map.addControl(new BMap.ScaleControl()); // 添加比例尺控件
+		map.addControl(new BMap.NavigationControl()); // 添加缩放控件
+		map.addControl(new BMap.CityListControl()); // 添加城市列表控件
+		map.addControl(new BMap.GeolocationControl()); // 添加定位控件
+		// map.addControl(new BMap.MapTypeControl()); // 添加地图类型
+		map.addControl(new BMap.OverviewMapControl()); // 添加缩略地图
+		
+		// 浏览器定位
+		const geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r) {
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				const mk = new BMap.Marker(r.point);
+				map.addOverlay(mk);
+				map.panTo(r.point);
+				console.log(r);
+				console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
+			} else {
+				console.log('定位失败' + this.getStatus());
+			}
+		}, (e)=>{
+			console.log(e)
+			console.log('定位失败')
+		}, { provider: 'baidu' });
+		
+		// IP定位
+		function myFun(result){
+			const cityName = result.name;
+			const mk = new BMap.Marker(result.center);
+			map.addOverlay(mk);
+			map.panTo(result.center);
+			map.setCenter(cityName);
+			console.log(result);
+			
+			// const p1 = new BMap.Point(116.301934,39.977552);
+			// const p2 = new BMap.Point(116.508328,39.919141);
+			const p2 = new BMap.Point(110.2067199, 19.05211309);
+			let output = '驾车需要';
+			const driving = new BMap.DrivingRoute(map, {
+				renderOptions:{
+					map: map, 
+					autoViewport: true,
+				},
+				onSearchComplete(results){
+					if (driving.getStatus() == BMAP_STATUS_SUCCESS){ 
+						// 获取第一条方案 
+						const plan = results.getPlan(0); 
+						// 获取方案的驾车线路 
+						const route = plan.getRoute(0); 
+						// 获取每个关键步骤，并输出到页面 
+						const s = []; 
+						for (let i = 0; i < route.getNumSteps(); i ++) { 
+							const step = route.getStep(i); 
+							console.log(step);
+						}
+						
+						output += plan.getDuration(true) + "\n"; //获取时间
+						output += "总路程为：" ;
+						output += plan.getDistance(true) + "\n"; //获取距离
+					} 
+        },
+				onPolylinesSet() {
+					console.log(output)
+				}
+			});
+			driving.search(result.center, p2);
+			
+			// 信息弹框
+			const opts = {
+				width: 150,     // 信息窗口宽度
+				height: 50,    // 信息窗口高度
+				title: "如家酒店"  // 信息窗口标题
+			}
+			const infoWindow = new BMap.InfoWindow(`
+				<p style="color: red;">预计20:22到达</p>
+			`, opts);  // 创建信息窗口对象
+			mk.addEventListener("click", () => {          
+				map.openInfoWindow(infoWindow, map.getCenter()); //开启信息窗口
+			});
+		}
+		const myCity = new BMap.LocalCity();
+		myCity.get(myFun);
+		
+		// 路线规划
+		// const p1 = new BMap.Point(116.301934,39.977552);
+		// const p2 = new BMap.Point(116.508328,39.919141);
+
+		// const driving = new BMap.DrivingRoute(map, {
+		// 	renderOptions:{
+		// 		map: map, 
+		// 		autoViewport: true,
+		// 	},
+		// });
+		// driving.search(p1, p2);
+		
+		// 地址解析
+		// const myGeo = new BMap.Geocoder();
+		// // 将地址解析结果显示在地图上，并调整地图视野    
+		// myGeo.getPoint("海口市海银大厦", function(point){      
+		// 	if (point) {      
+		// 		map.centerAndZoom(point, 16);      
+		// 		map.addOverlay(new BMap.Marker(point));      
+		// 	}
+		// });
+	</script>
+</body>
+</html>
