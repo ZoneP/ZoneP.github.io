@@ -8,16 +8,6 @@
 </head>
 <body>
 	<script>
-		if (navigator.geolocation){
-			navigator.geolocation.getCurrentPosition(function (position) {
-				console.log('h5经纬度：', position.coords);
-			}, function(err){
-				console.log(err);
-			} );
-		}else {
-			console.log("您的设备不支持定位功能");
-		}
-		
 	  const appid = 'wx02e43d0c4532392c';
 	  const ll = encodeURIComponent(window.location.href);
 		let local = window.location.href;

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		if (navigator.geolocation){
+			navigator.geolocation.getCurrentPosition(function (position) {
+				console.log('h5经纬度：', position.coords);
+			}, function(err){
+				console.log(err);
+			} );
+		}else {
+			console.log("您的设备不支持定位功能");
+		}
+	</script>
+</body>
+</html>
