@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	  const appid = 'wx02e43d0c4532392c';
+	  const ll = encodeURIComponent(window.location.href);
+		let local = window.location.href;
+		//不存在就打开上面的地址进行授权
+		window.location.href =
+			"https://open.weixin.qq.com/connect/oauth2/authorize?appid=" +
+			appid +
+			"&redirect_uri=" +
+			encodeURIComponent(local) +
+			"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+		// 截取url中的code方法
+		var url = location.search;
+		var theRequest = new Object();
+		if (url.indexOf("?") != -1) {
+			var str = url.substr(1);
+			var strs = str.split("&");
+			for (var i = 0; i < strs.length; i++) {
+				theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+			}
+		}
+		alert(JSON.stringify(theRequest));
+	</script>
+</body>
+</html>

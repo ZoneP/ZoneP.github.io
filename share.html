@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+</head>
+<body>
+	<button id="btn">分享按钮</button>
+	<script>
+		const linkUrl = window.location.href; // 当前地址
+		const btn = document.querySelector('#btn');
+		console.log(wx);
+		//**配置微信信息**
+		wx.config ({
+			debug : true,
+			appId : 'wx02e43d0c4532392c',
+			timestamp : Date.now(),
+			nonceStr : '123',
+			signature : '123',
+			jsApiList : [
+				// 所有要调用的 API 都要加到这个列表中
+				'updateTimelineShareData',
+				'updateAppMessageShareData',
+				'onMenuShareWeibo'
+			],
+		});
+		
+		btn.addEventListener('click', () => {
+			wx.ready (function () {
+				// 微信分享的数据
+				var shareData = {
+					"imgUrl" : "http://appdev.yinqihui.net.cn:9500/group1/M00/03/58/oYYBAGLgtVCAPwZ-AAiPqqTdmS8104.png",
+					"link" : linkUrl,
+					"desc" : '这是一个测试分享功能',
+					"title" : '测试分享',
+					success : function () {
+							// 分享成功可以做相应的数据处理
+					}
+				};
+				//分享微信朋友圈
+				wx.updateTimelineShareData(shareData);
+				//分享给朋友
+				wx.updateAppMessageShareData({
+					title: '测试分享', // 分享标题
+					desc: '这是一个测试分享功能', // 分享描述
+					link: linkUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+					imgUrl: 'http://appdev.yinqihui.net.cn:9500/group1/M00/03/58/oYYBAGLgtVCAPwZ-AAiPqqTdmS8104.png', // 分享图标
+					success: function () {
+						// 设置成功
+					}
+				});
+				//分享到微博
+				wx.onMenuShareWeibo(shareData);
+			});
+		});
+	</script>
+</body>
+</html>
