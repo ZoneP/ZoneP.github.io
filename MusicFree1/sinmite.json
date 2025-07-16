@@ -1,0 +1,54 @@
+{
+  "plugins": [
+    {
+      "name": "navidrome",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/navidrome.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "wedav",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/webdav.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "youtube",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/youtube.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "bilibili",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/bilibili.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "qqmusic",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/qqmusic.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "netease",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/netease.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "kuwo",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/kuwo.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "kugou",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/kugou.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "migu",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/migu.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "netease_fm",
+      "url": "https://gitee.com/sinmite/source/raw/master/musicfree/netease_fm.js",
+      "version": "0.0.1"
+    }
+  ]
+}

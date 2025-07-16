@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    {
+      "name": "kg",
+      "url": "./kg.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "kw",
+      "url": "./kw.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "qq",
+      "url": "./qq.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "wy",
+      "url": "./wy.js",
+      "version": "0.0.1"
+    },
+    {
+      "name": "migu",
+      "url": "./migu.js",
+      "version": "0.0.1"
+    },
+  ]
+}
