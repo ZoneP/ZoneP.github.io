@@ -2,28 +2,28 @@
   "plugins": [
     {
       "name": "kg",
-      "url": "./kg.js",
-      "version": "0.0.1"
+      "url": "https://zonep.github.io/MusicFree1/kg.js",
+      "version": "0.1.0"
     },
     {
       "name": "kw",
-      "url": "./kw.js",
+      "url": "https://zonep.github.io/MusicFree1/kw.js",
       "version": "0.0.1"
     },
     {
       "name": "qq",
-      "url": "./qq.js",
-      "version": "0.0.1"
+      "url": "https://zonep.github.io/MusicFree1/qq.js",
+      "version": "0.1.0"
     },
     {
       "name": "wy",
-      "url": "./wy.js",
-      "version": "0.0.1"
+      "url": "https://zonep.github.io/MusicFree1/wy.js",
+      "version": "0.1.0"
     },
     {
       "name": "migu",
-      "url": "./migu.js",
-      "version": "0.0.1"
+      "url": "https://zonep.github.io/MusicFree1/migu.js",
+      "version": "0.1.0"
     },
   ]
 }
