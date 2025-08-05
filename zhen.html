@@ -3,7 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>震动</title>
+	<title>震动和禁止下拉</title>
+	<style>
+		body {
+			/* contain: 阻止滚动链传递到父元素 */
+			overscroll-behavior: contain;
+		}
+	</style>
 </head>
 <body>
 	<button class="btn">点击震动</button>
