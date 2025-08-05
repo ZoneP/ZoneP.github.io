@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<button class="btn">点击震动</button>
+	<script>
+		const btn = document.querySelector('.btn');
+		btn.addEventListener('click', () => {
+			if (window.navigator.vibrate) {
+				window.navigator.vibrate(500);
+			} else {
+				console.log("浏览器不支持 Vibration API");
+			}
+		});
+	</script>
+</body>
+</html>
