@@ -11,13 +11,16 @@
 	<button id="btn2">检测权限状态</button>
 	<script>
 		if (navigator.geolocation){
-			navigator.geolocation.getCurrentPosition(function(position) {
-				console.log('h5经纬度：', position.coords);
-				alert(JSON.stringify(position.coords))
-			}, function(err){
-				console.log(err);
-				alert(err);
-			});
+			navigator.geolocation.getCurrentPosition(
+				function(position) {
+					console.log('h5经纬度：', position.coords);
+					alert(JSON.stringify(position.coords))
+				},
+				function(err){
+					console.log(err);
+					alert(JSON.stringify(err));
+				}
+			);
 		}else {
 			console.log("您的设备不支持定位功能");
 		}
@@ -66,13 +69,16 @@
 				} else {
 					// 权限被拒绝 
 					console.log('地理位置权限已被拒绝');
-					navigator.geolocation.getCurrentPosition(position => {
-						// 处理位置信息 
-						console.log('位置获取成功:', position);
-					}, error => {
-						// 处理错误 
-						console.error('位置获取失败:', error);
-					});
+					let flag = window.confirm('是否再次获取弹框信息');
+					if (flag) {
+						navigator.geolocation.getCurrentPosition(position => {
+							// 处理位置信息 
+							console.log('位置获取成功:', position);
+						}, error => {
+							// 处理错误 
+							console.error('位置获取失败:', error);
+						});
+					}
 				}
 			});
 		}
