@@ -7,8 +7,8 @@
 	<title>Document</title>
 </head>
 <body>
-	<button onclick="watchLocation">持续监听位置</button>
-	<button onclick="clearWatch">检测权限状态</button>
+	<button id="btn1">持续监听位置</button>
+	<button id="btn2">检测权限状态</button>
 	<script>
 		if (navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(function(position) {
@@ -78,6 +78,14 @@
 		}
 		
 		let watchId = null;
+		let btn1 = document.querySelector('#btn1');
+		let btn2 = document.querySelector('#btn2');
+		btn1.addEventListener('click', () => {
+			watchLocation();
+		});
+		btn2.addEventListener('click', () => {
+			clearWatch();
+		});
 		// 持续监听
 		function watchLocation() {
 			if (watchId !== null) {
