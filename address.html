@@ -7,6 +7,8 @@
 	<title>Document</title>
 </head>
 <body>
+	<button onclick="watchLocation">持续监听位置</button>
+	<button onclick="clearWatch">检测权限状态</button>
 	<script>
 		if (navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(function(position) {
@@ -73,6 +75,62 @@
 					});
 				}
 			});
+		}
+		
+		let watchId = null;
+		// 持续监听
+		function watchLocation() {
+			if (watchId !== null) {
+				alert('已经在监听位置变化');
+				return;
+			}
+			if (!navigator.geolocation) {
+				alert('您的浏览器不支持地理位置API');
+				return;
+			}
+			navigator.geolocation.watchPosition(
+				position => {
+					// 成功获取位置
+					const { latitude, longitude, accuracy } = position.coords;
+					const timestamp = new Date(position.timestamp).toLocaleString();
+					console.log('位置更新:', position, timestamp);
+				},
+				error => {
+					// 处理错误
+					let errorMessage = '监听位置失败: ';
+					switch(error.code) {
+						case error.PERMISSION_DENIED:
+							errorMessage += '用户拒绝了地理位置请求';
+							break;
+						case error.POSITION_UNAVAILABLE:
+							errorMessage += '无法获取当前位置信息';
+							break;
+						case error.TIMEOUT:
+							errorMessage += '获取位置信息超时';
+							break;
+						default:
+							errorMessage += '发生未知错误';
+					}
+					
+					alert(errorMessage);
+					console.error('位置监听失败:', error);
+				},
+				{
+					enableHighAccuracy: true,
+					timeout: 10000,
+					maximumAge: 0
+				}
+			);
+		}
+		// 停止监听位置
+		function clearWatch() {
+			if (watchId !== null) {
+				navigator.geolocation.clearWatch(watchId);
+				watchId = null;
+				alert('已停止监听位置变化');
+			} else {
+				alert('当前没有活跃的位置监听');
+			}
 		}
 	</script>
 </body>
