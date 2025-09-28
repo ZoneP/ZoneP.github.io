@@ -30,7 +30,7 @@
 			return navigator.permissions.query({
 				name: 'geolocation'
 			}).then(permissionStatus => {
-				status.onchange = function() {
+				permissionStatus.onchange = function() {
 				  console.log('权限状态变更');
 				};
 				return permissionStatus.state;
