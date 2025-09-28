@@ -19,6 +19,61 @@
 		}else {
 			console.log("您的设备不支持定位功能");
 		}
+		
+		
+		getSmartLocation();
+		// 检查地理位置权限状态
+		function checkGeolocationPermission() {
+			if (!navigator.permissions) {
+				return Promise.resolve('unknown');
+			}
+			return navigator.permissions.query({
+				name: 'geolocation'
+			}).then(permissionStatus => {
+				status.onchange = function() {
+				  console.log('权限状态变更');
+				};
+				return permissionStatus.state;
+			}).catch(() => 'unknown');
+		}
+		// 获取用户位置（智能方式）
+		function getSmartLocation() {
+			checkGeolocationPermission().then(state => {
+				console.log('=====', state)
+				if (state === 'granted') {
+					// 已有权限，直接获取位置 
+					navigator.geolocation.getCurrentPosition(position => {
+							// 处理位置信息 
+							console.log('位置获取成功:', position);
+						}, error => {
+							// 处理错误 
+							console.error('位置获取失败:', error);
+						}, {
+							timeout: 10000
+						}, // 10秒超时 
+					);
+				} else if (state === 'prompt') {
+					// 需要请求权限 
+					navigator.geolocation.getCurrentPosition(position => {
+						// 处理位置信息 
+						console.log('位置获取成功:', position);
+					}, error => {
+						// 处理错误 
+						console.error('位置获取失败:', error);
+					});
+				} else {
+					// 权限被拒绝 
+					console.log('地理位置权限已被拒绝');
+					navigator.geolocation.getCurrentPosition(position => {
+						// 处理位置信息 
+						console.log('位置获取成功:', position);
+					}, error => {
+						// 处理错误 
+						console.error('位置获取失败:', error);
+					});
+				}
+			});
+		}
 	</script>
 </body>
 </html>
